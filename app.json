@@ -7,7 +7,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/favicon.png"
+      "favicon": "./resources/favicon.png"
     },
     "plugins": [
       "expo-router",
@@ -32,10 +32,10 @@
       "typedRoutes": true
     },
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./resources/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./resources/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -49,7 +49,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./resources/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "app.nkzw.www"
