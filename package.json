@@ -19,20 +19,24 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/ui": "~0.1.1-alpha.7",
     "@expo/vector-icons": "^14.1.0",
     "@gorhom/bottom-sheet": "^5.1.4",
     "@legendapp/list": "^1.0.14",
     "@radix-ui/react-progress": "^1.1.7",
     "@react-navigation/native": "^7.1.9",
     "@react-navigation/stack": "^7.3.2",
+    "autoprefixer": "^10.4.21",
     "babel-plugin-react-compiler": "19.1.0-rc.2",
     "class-variance-authority": "^0.7.1",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "expo": "53.0.9",
+    "expo-blur": "~14.1.4",
     "expo-constants": "~17.1.6",
     "expo-dev-client": "~5.1.8",
     "expo-font": "^13.3.1",
+    "expo-image": "~2.1.7",
     "expo-linear-gradient": "^14.1.4",
     "expo-linking": "~7.1.5",
     "expo-localization": "^16.1.5",
@@ -41,11 +45,14 @@
     "expo-web-browser": "~14.1.6",
     "lucide-react-native": "^0.511.0",
     "nativewind": "^4.1.23",
+    "postcss": "^8.5.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-native": "~0.79.2",
     "react-native-edge-to-edge": "^1.6.0",
     "react-native-gesture-handler": "^2.25.0",
+    "react-native-keyboard-controller": "^1.17.3",
+    "react-native-progress": "^5.0.1",
     "react-native-reanimated": "^3.17.5",
     "react-native-safe-area-context": "^5.4.1",
     "react-native-screens": "4.11.0-beta.2",
@@ -65,7 +72,7 @@
     "prettier-plugin-packagejson": "^2.5.14",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "react-native-svg-transformer": "^1.5.1",
-    "tailwindcss": "^3.4.0",
+    "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3",
     "vitest": "^3.1.4",
     "vitest-react-native": "^0.1.5"
@@ -79,7 +86,6 @@
     },
     "patchedDependencies": {
       "metro": "patches/metro.patch"
-    },
-    "ignorePatchFailures": false
+    }
   }
 }

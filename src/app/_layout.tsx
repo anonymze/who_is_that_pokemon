@@ -1,7 +1,9 @@
 import "@/styles/app.css";
-import { Slot } from "expo-router";
-import { View } from "react-native";
+
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { KeyboardProvider } from "react-native-keyboard-controller";
+import { View } from "react-native";
+import { Slot } from "expo-router";
 
 export const unstable_settings = {
   initialRouteName: "(app)",
@@ -10,9 +12,11 @@ export const unstable_settings = {
 export default function RootLayout() {
   return (
     <GestureHandlerRootView>
-      <View className="flex-column flex-1 p-0">
-        <Slot />
-      </View>
+      <KeyboardProvider>
+        <View className="flex-column flex-1 p-0">
+          <Slot />
+        </View>
+      </KeyboardProvider>
     </GestureHandlerRootView>
   );
 }
