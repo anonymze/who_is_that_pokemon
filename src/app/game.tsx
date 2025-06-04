@@ -54,8 +54,6 @@ export default function Page() {
       console.log(pokemons[indexScrollView].names[lang]);
       const result = verifyString(input, pokemons[indexScrollView].names[lang]);
 
-      console.log(result);
-
       if (result.isCorrect) {
         setScore((prev) => prev + 1);
         nextScroll();
