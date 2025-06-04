@@ -1,9 +1,6 @@
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-  withRepeat,
-  withSequence,
-  withTiming,
 } from "react-native-reanimated";
 import { useReanimatedKeyboardAnimation } from "react-native-keyboard-controller";
 import { getRandomPokemons, handleShake, verifyString } from "@/utils/helper";
