@@ -127,17 +127,19 @@ export default function Page() {
         <Text className="w-20 text-white text-2xl font-bold">1 / {limit}</Text>
         <Text className="text-white text-2xl font-bold">Score : {score}</Text>
         <View className="w-20 items-end">
-          {lang === "fr" ? (
-            <FrFlag width={42} height={42} />
-          ) : lang === "es" ? (
-            <EsFlag width={42} height={42} />
-          ) : lang === "de" ? (
-            <DeFlag width={42} height={42} />
-          ) : lang === "it" ? (
-            <ItFlag width={42} height={42} />
-          ) : (
-            <EnFlag width={42} height={42} />
-          )}
+          <View className="bg-white rounded-full p-1">
+            {lang === "fr" ? (
+              <FrFlag width={42} height={42} />
+            ) : lang === "es" ? (
+              <EsFlag width={42} height={42} />
+            ) : lang === "de" ? (
+              <DeFlag width={42} height={42} />
+            ) : lang === "it" ? (
+              <ItFlag width={42} height={42} />
+            ) : (
+              <EnFlag width={42} height={42} />
+            )}
+          </View>
         </View>
       </View>
       <Progress.Bar
