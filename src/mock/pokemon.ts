@@ -1,4 +1,4 @@
-export const allPokemon = [
+export const allPokemon: Pokemon[] = [
   {
     id: 1,
     name: "bulbasaur",
@@ -31439,7 +31439,7 @@ export type Pokemon = {
   names: Record<string, string>;
   generation: number;
   types: string[];
-  image: string | null;
+  image: string;
   sprites: {
     front_default: string | null;
     front_shiny: string | null;

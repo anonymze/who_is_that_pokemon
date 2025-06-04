@@ -52,9 +52,6 @@ importers:
       expo:
         specifier: 53.0.9
         version: 53.0.9(@babel/core@7.27.1)(@expo/metro-runtime@5.0.4(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0)))(babel-plugin-react-compiler@19.1.0-rc.2)(graphql@16.10.0)(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0)
-      expo-blur:
-        specifier: ~14.1.4
-        version: 14.1.4(expo@53.0.9(@babel/core@7.27.1)(@expo/metro-runtime@5.0.4(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0)))(babel-plugin-react-compiler@19.1.0-rc.2)(graphql@16.10.0)(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0)
       expo-constants:
         specifier: ~17.1.6
         version: 17.1.6(expo@53.0.9(@babel/core@7.27.1)(@expo/metro-runtime@5.0.4(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0)))(babel-plugin-react-compiler@19.1.0-rc.2)(graphql@16.10.0)(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))
@@ -2349,13 +2346,6 @@ packages:
 
   expo-asset@11.1.5:
     resolution: {integrity: sha512-GEQDCqC25uDBoXHEnXeBuwpeXvI+3fRGvtzwwt0ZKKzWaN+TgeF8H7c76p3Zi4DfBMFDcduM0CmOvJX+yCCLUQ==}
-    peerDependencies:
-      expo: '*'
-      react: '*'
-      react-native: '*'
-
-  expo-blur@14.1.4:
-    resolution: {integrity: sha512-55P9tK/RjJZEcu2tU7BqX3wmIOrGMOOkmHztJMMws+ZGHzvtjnPmT7dsQxhOU9vPj77oHnKetYHU2sik3iBcCw==}
     peerDependencies:
       expo: '*'
       react: '*'
@@ -7112,12 +7102,6 @@ snapshots:
       react-native: 0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0)
     transitivePeerDependencies:
       - supports-color
-
-  expo-blur@14.1.4(expo@53.0.9(@babel/core@7.27.1)(@expo/metro-runtime@5.0.4(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0)))(babel-plugin-react-compiler@19.1.0-rc.2)(graphql@16.10.0)(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0):
-    dependencies:
-      expo: 53.0.9(@babel/core@7.27.1)(@expo/metro-runtime@5.0.4(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0)))(babel-plugin-react-compiler@19.1.0-rc.2)(graphql@16.10.0)(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0)
-      react: 19.1.0
-      react-native: 0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0)
 
   expo-build-disk-cache@0.4.4(graphql@16.10.0)(typescript@5.8.3):
     dependencies:

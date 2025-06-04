@@ -1,21 +1,15 @@
 import { Button, Text, View } from "react-native";
 import { router } from "expo-router";
-import { BlurView } from "expo-blur";
 import { Image } from "expo-image";
 
 export default function Page() {
   return (
     <View className="flex-1 pt-safe" style={{ backgroundColor: "red" }}>
-      <BlurView
-        renderToHardwareTextureAndroid
-        intensity={40}
-        tint="dark"
-        className="h-20 w-full items-center justify-center"
-      >
+      <View className="h-20 w-full items-center justify-center bg-red-900">
         <Text className="text-white font-bold text-2xl">
           Who's that Pokemon ?
         </Text>
-      </BlurView>
+      </View>
       <View className="size-32 bg-white rounded-full border-[5px] border-black items-center justify-center self-center mt-6">
         <View className="size-20 border-black border-2 rounded-full items-center justify-center">
           <Image
