@@ -180,7 +180,7 @@ export default function Page() {
             >
               <Image
                 source={pokemon.image}
-                style={{ width: 200, height: 200 }}
+                style={{ width: 220, height: 220 }}
                 contentFit="contain"
               />
             </View>
