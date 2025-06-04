@@ -1,17 +1,9 @@
-import {
-  Dimensions,
-  Pressable,
-  TextInput,
-  TextInputProps,
-  View,
-} from "react-native";
+import { Pressable, TextInput, TextInputProps, View } from "react-native";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import { CircleXIcon, SearchIcon } from "lucide-react-native";
 import config from "tailwind.config";
 import { cn } from "@/libs/tailwind";
 import React from "react";
-
-const widthTextInput = Dimensions.get("window").width - 80;
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
