@@ -1,4 +1,8 @@
+import { SharedValue, withTiming } from "react-native-reanimated";
+import { withSequence } from "react-native-reanimated";
+import { withRepeat } from "react-native-reanimated";
 import { allPokemon } from "@/mock/pokemon";
+import * as Haptics from "expo-haptics";
 
 export const getRandomPokemons = ({
   limit,
@@ -63,4 +67,24 @@ export const verifyString = (input: string, pokemonName: string) => {
     distance: distance,
     isClose: distance <= 2, // Consider close if 1 or 2 characters different
   };
+};
+
+export const handleShake = (
+  shakeOffset: SharedValue<number>,
+  type: "light" | "heavy" = "light",
+) => {
+  const TIME = 65;
+  const OFFSET = type === "light" ? 2 : 4;
+
+  if (type === "light") {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+  } else {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+  }
+
+  shakeOffset.value = withSequence(
+    withTiming(-OFFSET, { duration: TIME / 2 }),
+    withRepeat(withTiming(OFFSET, { duration: TIME }), 3, true),
+    withTiming(0, { duration: TIME / 2 }),
+  );
 };

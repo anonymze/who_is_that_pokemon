@@ -1,10 +1,16 @@
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withSequence,
+  withTiming,
+} from "react-native-reanimated";
 import { useReanimatedKeyboardAnimation } from "react-native-keyboard-controller";
-import Animated, { useAnimatedStyle } from "react-native-reanimated";
+import { getRandomPokemons, handleShake, verifyString } from "@/utils/helper";
+import InputSearch, { InputSearchRef } from "@/components/ui/input-search";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { getRandomPokemons, verifyString } from "@/utils/helper";
 import { Button, Dimensions, Text, View } from "react-native";
 import { Redirect, useLocalSearchParams } from "expo-router";
-import InputSearch from "@/components/ui/input-search";
 import * as Progress from "react-native-progress";
 import { Image } from "expo-image";
 import React from "react";
@@ -15,13 +21,31 @@ const prefetchNextImage = (url: string) => {
   Image.prefetch(url).catch(() => {});
 };
 
+interface ResultGame {
+  name: string;
+  nameI18n: string;
+  input: string;
+  lang: string;
+  types: string[];
+  image: string;
+  correct: boolean;
+}
+
 export default function Page() {
   const { bottom } = useSafeAreaInsets();
   const { height } = useReanimatedKeyboardAnimation();
   const { limit, generation, lang } = useLocalSearchParams();
+  const shakeOffset = useSharedValue(0);
+
   const scrollViewRef = React.useRef<Animated.ScrollView>(null);
+  const inputSearchRef = React.useRef<InputSearchRef>(null);
+
   const [score, setScore] = React.useState(0);
   const [indexScrollView, setIndexScrollView] = React.useState(0);
+  const [state, setState] = React.useState<
+    "error" | "almost" | "close" | undefined
+  >();
+  const results = React.useRef<Map<number, ResultGame>>(new Map());
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -54,24 +78,37 @@ export default function Page() {
       console.log(pokemons[indexScrollView].names[lang]);
       const result = verifyString(input, pokemons[indexScrollView].names[lang]);
 
+      const id = pokemons[indexScrollView].id;
+      const resultGame = {
+        name: pokemons[indexScrollView].name,
+        nameI18n: pokemons[indexScrollView].names[lang],
+        input,
+        lang: lang,
+        image: pokemons[indexScrollView].image,
+        types: pokemons[indexScrollView].types,
+      };
+
       if (result.isCorrect) {
+        results.current.set(id, { ...resultGame, correct: true });
         setScore((prev) => prev + 1);
         nextScroll();
       } else if (result.isClose) {
-        // You can add visual feedback here for close answers
-        console.log(`Close! Only ${result.distance} character(s) off`);
+        results.current.set(id, { ...resultGame, correct: false });
+        handleShake(shakeOffset);
+        setState(result.distance === 1 ? "close" : "almost");
       } else {
-        console.log(`Not close enough. ${result.distance} characters off`);
+        results.current.set(id, { ...resultGame, correct: false });
+        handleShake(shakeOffset, "heavy");
+        setState("error");
       }
     },
     [indexScrollView, pokemons, lang],
   );
 
   const nextScroll = React.useCallback(() => {
-    console.log(indexScrollView, pokemons.length - 1);
     if (indexScrollView === pokemons.length - 1) return console.log("end");
 
-    prefetchNextImage(pokemons[indexScrollView + 1].image);
+    // prefetchNextImage(pokemons[indexScrollView + 1].image);
 
     scrollViewRef.current?.scrollTo({
       x: (indexScrollView + 1) * width,
@@ -89,7 +126,7 @@ export default function Page() {
       </View>
       <Progress.Bar
         animated
-        progress={0.3}
+        progress={indexScrollView / (pokemons.length - 1)}
         width={null}
         height={10}
         borderRadius={0}
@@ -103,9 +140,11 @@ export default function Page() {
       >
         <Animated.ScrollView
           onLayout={() => {
-            prefetchNextImage(pokemons[indexScrollView + 1].image);
+            // prefetchNextImage(pokemons[indexScrollView + 1].image);
           }}
           onScroll={(event) => {
+            setState(undefined);
+            inputSearchRef.current?.clear();
             setIndexScrollView(
               Math.round(event.nativeEvent.contentOffset.x / width),
             );
@@ -129,19 +168,28 @@ export default function Page() {
             </View>
           ))}
         </Animated.ScrollView>
-        <InputSearch
-          autoCorrect={false}
-          autoFocus={true}
-          autoComplete="off"
-          autoCapitalize="none"
-          placeholder="Nom du pokemon"
-          keyboardType="default"
-          textContentType="oneTimeCode"
-          enterKeyHint="next"
-          onSubmitEditing={(event) => {
-            verifyAnswer(event.nativeEvent.text);
-          }}
-        />
+        <Animated.View
+          className="w-9/12 mx-auto"
+          style={{ transform: [{ translateX: shakeOffset }] }}
+        >
+          <InputSearch
+            ref={inputSearchRef}
+            submitBehavior="submit"
+            state={state}
+            autoCorrect={false}
+            autoFocus={true}
+            autoComplete="off"
+            autoCapitalize="none"
+            placeholder="Nom du pokemon"
+            keyboardType="default"
+            textContentType="oneTimeCode"
+            enterKeyHint="next"
+            onSubmitEditing={(event) => {
+              if (event.nativeEvent.text.length < 1) return;
+              verifyAnswer(event.nativeEvent.text);
+            }}
+          />
+        </Animated.View>
         <Button
           title="Passer"
           onPress={() => {
