@@ -9,6 +9,13 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button, Dimensions, Text, View } from "react-native";
 import { Redirect, useLocalSearchParams } from "expo-router";
 import * as Progress from "react-native-progress";
+import { ShieldXIcon } from "lucide-react-native";
+import ItFlag from "@/assets/flags/it.svg";
+import FrFlag from "@/assets/flags/fr.svg";
+import EsFlag from "@/assets/flags/es.svg";
+import EnFlag from "@/assets/flags/en.svg";
+import DeFlag from "@/assets/flags/de.svg";
+import colors from "tailwindcss/colors";
 import { Image } from "expo-image";
 import React from "react";
 
@@ -117,9 +124,21 @@ export default function Page() {
   return (
     <Animated.View className="flex-1 pt-safe pb-safe bg-red-600">
       <View className="bg-red-600 px-4 h-20 flex-row w-full items-center justify-between">
-        <Text className="text-white text-2xl font-bold">1 / {limit}</Text>
+        <Text className="w-20 text-white text-2xl font-bold">1 / {limit}</Text>
         <Text className="text-white text-2xl font-bold">Score : {score}</Text>
-        <Text className="text-white text-2xl font-bold">{lang}</Text>
+        <View className="w-20 items-end">
+          {lang === "fr" ? (
+            <FrFlag width={42} height={42} />
+          ) : lang === "es" ? (
+            <EsFlag width={42} height={42} />
+          ) : lang === "de" ? (
+            <DeFlag width={42} height={42} />
+          ) : lang === "it" ? (
+            <ItFlag width={42} height={42} />
+          ) : (
+            <EnFlag width={42} height={42} />
+          )}
+        </View>
       </View>
       <Progress.Bar
         animated
@@ -188,6 +207,7 @@ export default function Page() {
           />
         </Animated.View>
         <Button
+          color="white"
           title="Passer"
           onPress={() => {
             nextScroll();
@@ -197,15 +217,15 @@ export default function Page() {
 
       <View className="absolute bottom-0 pb-safe-offset-20 pb-20 left-0 right-0 flex-row gap-4 items-center justify-center">
         <View className="flex-row gap-2 items-center">
-          <View className="size-4 bg-red-900 rounded-full"></View>
+          <ShieldXIcon size={24} color={colors.red[600]} />
           <Text className="text-white text-lg font-semibold">Incorrect</Text>
         </View>
         <View className="flex-row gap-2 items-center">
-          <View className="size-4 bg-orange-400 rounded-full"></View>
+          <ShieldXIcon size={24} color={colors.orange[500]} />
           <Text className="text-white text-lg font-semibold">2 letters</Text>
         </View>
         <View className="flex-row gap-2 items-center">
-          <View className="size-4 bg-yellow-400 rounded-full"></View>
+          <ShieldXIcon size={24} color={colors.yellow[400]} />
           <Text className="text-white text-lg font-semibold">1 letter</Text>
         </View>
       </View>
