@@ -12,10 +12,8 @@ import { cn } from "@/libs/tailwind";
 import React from "react";
 
 const widthTextInput = Dimensions.get("window").width - 80;
-const widthTextInputAnimated = widthTextInput - 56;
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-const AnimatedView = Animated.createAnimatedComponent(View);
 
 interface InputSearchProps extends TextInputProps {
   onClear?: () => void;
