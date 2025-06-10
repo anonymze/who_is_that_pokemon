@@ -5,9 +5,9 @@ import Animated, {
 import { useReanimatedKeyboardAnimation } from "react-native-keyboard-controller";
 import { getRandomPokemons, handleShake, verifyString } from "@/utils/helper";
 import InputSearch, { InputSearchRef } from "@/components/ui/input-search";
+import { Redirect, router, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button, Dimensions, Text, View } from "react-native";
-import { Redirect, useLocalSearchParams } from "expo-router";
 import * as Progress from "react-native-progress";
 import { ShieldXIcon } from "lucide-react-native";
 import ItFlag from "@/assets/flags/it.svg";
@@ -15,9 +15,11 @@ import FrFlag from "@/assets/flags/fr.svg";
 import EsFlag from "@/assets/flags/es.svg";
 import EnFlag from "@/assets/flags/en.svg";
 import DeFlag from "@/assets/flags/de.svg";
+import { queryClient } from "@/api/config";
+import { Pokemon } from "@/mock/pokemon";
 import colors from "tailwindcss/colors";
+import React, { useId } from "react";
 import { Image } from "expo-image";
-import React from "react";
 
 const width = Dimensions.get("window").width;
 
@@ -36,6 +38,7 @@ interface ResultGame {
 }
 
 export default function Page() {
+  const id = useId();
   const { bottom } = useSafeAreaInsets();
   const { height } = useReanimatedKeyboardAnimation();
   const { limit, generation, lang } = useLocalSearchParams();
@@ -63,6 +66,8 @@ export default function Page() {
     };
   });
 
+  console.log(limit, generation, lang);
+
   if (
     typeof limit !== "string" ||
     typeof generation !== "string" ||
@@ -78,8 +83,7 @@ export default function Page() {
   }, [limit, generation]);
 
   const verifyAnswer = React.useCallback(
-    (input: string) => {
-      console.log(pokemons[indexScrollView].names[lang]);
+    (input: string, skip: boolean = false) => {
       const result = verifyString(input, pokemons[indexScrollView].names[lang]);
 
       const id = pokemons[indexScrollView].id;
@@ -91,6 +95,12 @@ export default function Page() {
         image: pokemons[indexScrollView].image,
         types: pokemons[indexScrollView].types,
       };
+
+      if (skip) {
+        results.current.set(id, { ...resultGame, correct: false });
+        nextScroll();
+        return;
+      }
 
       if (result.isCorrect) {
         results.current.set(id, { ...resultGame, correct: true });
@@ -110,7 +120,15 @@ export default function Page() {
   );
 
   const nextScroll = React.useCallback(() => {
-    if (indexScrollView === pokemons.length - 1) return console.log("end");
+    if (indexScrollView === pokemons.length - 1)
+      return goToFinish({
+        id,
+        pokemons,
+        lang,
+        results: results.current,
+        generation: generation,
+        limit: limit,
+      });
 
     // prefetchNextImage(pokemons[indexScrollView + 1].image);
 
@@ -122,12 +140,12 @@ export default function Page() {
   }, [indexScrollView, pokemons]);
 
   return (
-    <Animated.View className="flex-1 pt-safe pb-safe bg-red-600">
-      <View className="bg-red-600 px-4 h-20 flex-row w-full items-center justify-between">
-        <Text className="w-20 text-white text-2xl font-bold">1 / {limit}</Text>
-        <Text className="text-white text-2xl font-bold">Score : {score}</Text>
+    <Animated.View className="pt-safe pb-safe flex-1 bg-red-600">
+      <View className="h-20 w-full flex-row items-center justify-between bg-red-600 px-4">
+        <Text className="w-20 text-2xl font-bold text-white">1 / {limit}</Text>
+        <Text className="text-2xl font-bold text-white">Score : {score}</Text>
         <View className="w-20 items-end">
-          <View className="bg-white rounded-full p-1">
+          <View className="rounded-full bg-white p-1">
             {lang === "fr" ? (
               <FrFlag width={42} height={42} />
             ) : lang === "es" ? (
@@ -153,7 +171,7 @@ export default function Page() {
         borderWidth={0}
       />
       <Animated.View
-        className="flex-1 bg-blue-600 justify-center gap-3"
+        className="flex-1 justify-center gap-3 bg-blue-600"
         style={animatedStyle2}
       >
         <Animated.ScrollView
@@ -187,7 +205,7 @@ export default function Page() {
           ))}
         </Animated.ScrollView>
         <Animated.View
-          className="w-9/12 mx-auto"
+          className="mx-auto w-9/12"
           style={{ transform: [{ translateX: shakeOffset }] }}
         >
           <InputSearch
@@ -212,32 +230,70 @@ export default function Page() {
           color="white"
           title="Passer"
           onPress={() => {
-            nextScroll();
+            verifyAnswer("", true);
           }}
         />
       </Animated.View>
 
-      <View className="absolute bottom-0 pb-safe-offset-20 pb-20 left-0 right-0 flex-row gap-4 items-center justify-center">
-        <View className="flex-row gap-2 items-center">
+      <View className="pb-safe-offset-20 absolute bottom-0 left-0 right-0 flex-row items-center justify-center gap-4 pb-20">
+        <View className="flex-row items-center gap-2">
           <ShieldXIcon size={24} color={colors.red[600]} />
-          <Text className="text-white text-lg font-semibold">Incorrect</Text>
+          <Text className="text-lg font-semibold text-white">Incorrect</Text>
         </View>
-        <View className="flex-row gap-2 items-center">
+        <View className="flex-row items-center gap-2">
           <ShieldXIcon size={24} color={colors.orange[500]} />
-          <Text className="text-white text-lg font-semibold">2 letters</Text>
+          <Text className="text-lg font-semibold text-white">2 letters</Text>
         </View>
-        <View className="flex-row gap-2 items-center">
+        <View className="flex-row items-center gap-2">
           <ShieldXIcon size={24} color={colors.yellow[400]} />
-          <Text className="text-white text-lg font-semibold">1 letter</Text>
+          <Text className="text-lg font-semibold text-white">1 letter</Text>
         </View>
       </View>
 
       <Animated.View
-        className="h-16 bg-white  items-center justify-center w-full"
+        className="h-16 w-full items-center justify-center bg-white"
         style={animatedStyle}
       >
-        <Button title="Finish" />
+        <Button
+          title="Finish"
+          onPress={() => {
+            goToFinish({
+              id,
+              pokemons,
+              lang,
+              results: results.current,
+              generation: generation,
+              limit: limit,
+            });
+          }}
+        />
       </Animated.View>
     </Animated.View>
   );
 }
+
+const goToFinish = ({
+  pokemons,
+  lang,
+  results,
+  generation,
+  id,
+  limit,
+}: {
+  pokemons: Pokemon[];
+  lang: string;
+  results: Map<number, ResultGame>;
+  generation: string;
+  id: string;
+  limit: string;
+}) => {
+  const finalresult = {
+    pokemons,
+    results,
+  };
+  queryClient.setQueryData(["finish", id], finalresult);
+  return router.push({
+    pathname: "/result/[id]",
+    params: { id, limit, generation, lang },
+  });
+};

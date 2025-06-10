@@ -28,12 +28,18 @@ importers:
       '@radix-ui/react-progress':
         specifier: ^1.1.7
         version: 1.1.7(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@react-native-picker/picker':
+        specifier: ^2.11.0
+        version: 2.11.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0)
       '@react-navigation/native':
         specifier: ^7.1.9
         version: 7.1.9(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0)
       '@react-navigation/stack':
         specifier: ^7.3.2
         version: 7.3.2(@react-navigation/native@7.1.9(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0))(react-native-gesture-handler@2.25.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.4.1(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0))(react-native-screens@4.11.0-beta.2(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0)
+      '@tanstack/react-query':
+        specifier: ^5.80.6
+        version: 5.80.6(react@19.1.0)
       autoprefixer:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.4)
@@ -112,6 +118,9 @@ importers:
       react-native-keyboard-controller:
         specifier: ^1.17.3
         version: 1.17.3(react-native-reanimated@3.17.5(@babel/core@7.27.1)(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0)
+      react-native-picker-select:
+        specifier: ^9.3.1
+        version: 9.3.1(@react-native-picker/picker@2.11.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0))
       react-native-progress:
         specifier: ^5.0.1
         version: 5.0.1(react-native-svg@15.12.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0))
@@ -1256,6 +1265,12 @@ packages:
       '@types/react':
         optional: true
 
+  '@react-native-picker/picker@2.11.0':
+    resolution: {integrity: sha512-QuZU6gbxmOID5zZgd/H90NgBnbJ3VV6qVzp6c7/dDrmWdX8S0X5YFYgDcQFjE3dRen9wB9FWnj2VVdPU64adSg==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+
   '@react-native/assets-registry@0.79.2':
     resolution: {integrity: sha512-5h2Z7/+/HL/0h88s0JHOdRCW4CXMCJoROxqzHqxdrjGL6EBD1DdaB4ZqkCOEVSW4Vjhir5Qb97C8i/MPWEYPtg==}
     engines: {node: '>=18'}
@@ -1566,6 +1581,14 @@ packages:
     engines: {node: '>=14'}
     peerDependencies:
       '@svgr/core': '*'
+
+  '@tanstack/query-core@5.80.6':
+    resolution: {integrity: sha512-nl7YxT/TAU+VTf+e2zTkObGTyY8YZBMnbgeA1ee66lIVqzKlYursAII6z5t0e6rXgwUMJSV4dshBTNacNpZHbQ==}
+
+  '@tanstack/react-query@5.80.6':
+    resolution: {integrity: sha512-izX+5CnkpON3NQGcEm3/d7LfFQNo9ZpFtX2QsINgCYK9LT2VCIdi8D3bMaMSNhrAJCznRoAkFic76uvLroALBw==}
+    peerDependencies:
+      react: ^18 || ^19
 
   '@trysound/sax@0.2.0':
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
@@ -3093,6 +3116,13 @@ packages:
   lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
 
+  lodash.isequal@4.5.0:
+    resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
+    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
+
+  lodash.isobject@3.0.2:
+    resolution: {integrity: sha512-3/Qptq2vr7WeJbB4KHUSKlq8Pl7ASXi3UG6CMbBm8WRtXi8+GHm7mKaU3urfpSEzWe2wCIChs6/sdocUsTKJiA==}
+
   lodash.throttle@4.1.1:
     resolution: {integrity: sha512-wIkUCfVKpVsWo3JSZlc+8MB5it+2AN5W8J7YVMST30UrvcQNZ1Okbj+rbVniijTWE6FGYy4XJq/rHkas8qJMLQ==}
 
@@ -3764,6 +3794,11 @@ packages:
       react: '*'
       react-native: '*'
       react-native-reanimated: '>=3.0.0'
+
+  react-native-picker-select@9.3.1:
+    resolution: {integrity: sha512-o621HcsKJfJkpYeP/PZQiZTKbf8W7FT08niLFL0v1pGkIQyak5IfzfinV2t+/l1vktGwAH2Tt29LrP/Hc5fk3A==}
+    peerDependencies:
+      '@react-native-picker/picker': ^2.4.0
 
   react-native-progress@5.0.1:
     resolution: {integrity: sha512-TYfJ4auAe5vubDma2yfFvt7ktSI+UCfysqJnkdHEcLXqAitRFOozgF/cLgN5VNi/iLdaf3ga1ETi2RF4jVZ/+g==}
@@ -5896,6 +5931,11 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.5
 
+  '@react-native-picker/picker@2.11.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      react: 19.1.0
+      react-native: 0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0)
+
   '@react-native/assets-registry@0.79.2': {}
 
   '@react-native/babel-plugin-codegen@0.79.2(@babel/core@7.27.1)':
@@ -6248,6 +6288,13 @@ snapshots:
       svgo: 3.3.2
     transitivePeerDependencies:
       - typescript
+
+  '@tanstack/query-core@5.80.6': {}
+
+  '@tanstack/react-query@5.80.6(react@19.1.0)':
+    dependencies:
+      '@tanstack/query-core': 5.80.6
+      react: 19.1.0
 
   '@trysound/sax@0.2.0': {}
 
@@ -7866,6 +7913,10 @@ snapshots:
 
   lodash.debounce@4.0.8: {}
 
+  lodash.isequal@4.5.0: {}
+
+  lodash.isobject@3.0.2: {}
+
   lodash.throttle@4.1.1: {}
 
   log-symbols@2.2.0:
@@ -8547,6 +8598,12 @@ snapshots:
       react-native: 0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0)
       react-native-is-edge-to-edge: 1.1.7(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0)
       react-native-reanimated: 3.17.5(@babel/core@7.27.1)(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0)
+
+  react-native-picker-select@9.3.1(@react-native-picker/picker@2.11.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0)):
+    dependencies:
+      '@react-native-picker/picker': 2.11.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0)
+      lodash.isequal: 4.5.0
+      lodash.isobject: 3.0.2
 
   react-native-progress@5.0.1(react-native-svg@15.12.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.1.5)(react@19.1.0))(react@19.1.0)):
     dependencies:
