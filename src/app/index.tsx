@@ -1,5 +1,5 @@
 import RNPickerSelect from "react-native-picker-select";
-import { Button, Text, View } from "react-native";
+import { Button, Pressable, Text, View } from "react-native";
 import { router } from "expo-router";
 import { Image } from "expo-image";
 import { useState } from "react";
@@ -89,11 +89,16 @@ export default function Page() {
           }
         />
       </View>
-      <View className="relative flex-1 border-t-[5px] border-black bg-white">
+      <Pressable
+        className="relative flex-1 border-t-[5px] border-black bg-white"
+        onPress={() => {
+          router.push("/bag");
+        }}
+      >
         <View className="absolute -top-0.5 left-1/2 size-12 -translate-x-1/2 translate-y-[-50%] items-center justify-center rounded-full border-[5px] border-black bg-white">
           <View className="size-6 items-center justify-center rounded-full border border-black" />
         </View>
-      </View>
+      </Pressable>
     </View>
   );
 }
